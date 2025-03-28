@@ -1,44 +1,48 @@
 #!/bin/bash
 
-# Exit on error
-set -e
+. scripts/utils.sh
+. scripts/prerequisites.sh
+. scripts/brew-install.sh
+. scripts/symlinks.sh
 
-# Install sudo
-echo "Install sudo"
-apt update && apt install sudo -y
+info "Dotfiles intallation initialized..."
+read -p "Install apps? [y/n] " install_apps
+read -p "Overwrite existing dotfiles? [y/n] " overwrite_dotfiles
 
-echo "Updating package lists..."
-sudo apt update -y
+if [[ "$install_apps" == "y" ]]; then
+    printf "\n"
+    info "==================="
+    info "Prerequisites"
+    info "===================="
 
-# Install required dependencies
-echo "Installing dependencies..."
-sudo apt install -y curl wget git
+    install_homebrew
 
-# Install Neovim
-echo "Installing Neovim..."
-sudo apt install -y neovim
+    printf "\n"
+    info "===================="
+    info "Apps"
+    info "===================="
 
-# Install Zsh
-echo "Installing Zsh..."
-sudo apt install -y zsh
-chsh -s $(which zsh)
+    run_brew_bundle
+fi
 
-# Install Starship
-echo "Installing Starship..."
-curl -sS https://starship.rs/install.sh | sh -s -- -y
+printf "\n"
+info "===================="
+info "Terminal"
+info "===================="
 
-# Install gpg and eza
-sudo apt install -y gpg
-sudo mkdir -p /etc/apt/keyrings
-wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
-sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-sudo apt update
-sudo apt install -y eza
+info "Adding .hushlogin file to suppress 'last login' message in terminal..."
+touch ~/.hushlogin
 
-# Symlink
-ln -s .config/zsh/.zshrc .zshrc
-ln -s .config/vim/.vimrc .vimrc
-ln -s .config/zsh/.zsh .zsh
+printf "\n"
+info "===================="
+info "Symbolic Links"
+info "===================="
 
-echo "Installation complete! Please restart your terminal."
+chmod +x ./scripts/symlinks.sh
+if [[ "$overwrite_dotfiles" == "y" ]]; then
+    warning "Deleting existing dotfiles..."
+    ./scripts/symlinks.sh --delete --include-files
+fi
+./scripts/symlinks.sh --create
+
+success "Dotfiles set up successfully."
