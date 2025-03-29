@@ -5,11 +5,12 @@
 . scripts/brew-install.sh
 . scripts/symlinks.sh
 . scripts/zsh-link.sh
+. scripts/fonts.sh
 
 info "Dotfiles intallation initialized..."
 read -p "Install apps? [y/n] " install_apps
 read -p "Overwrite existing dotfiles? [y/n] " overwrite_dotfiles
-
+read -p "Install fonts? [y/n]" install_fonts
 if [[ "$install_apps" == "y" ]]; then
     printf "\n"
     info "==================="
@@ -34,6 +35,16 @@ if [[ "$install_apps" == "y" ]]; then
     info "===================="
 
     change_shell
+    printf "\n"
+fi
+
+if [["$install_fonts" == "y"]]; then
+    printf "\n"
+    info "===================="
+    info "Instaling fonts"
+    info "===================="
+
+    install_font
     printf "\n"
 fi
 
