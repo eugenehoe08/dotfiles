@@ -1,12 +1,14 @@
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
+# tap "homebrew/brew"
+# tap "homebrew/cask"
+# tap "homebrew/core"
 # Cross-platform make
 brew "cmake"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GNU compiler collection
 brew "gcc"
+# build-essentials for linux
+# brew 'build-essential'
 # Platform built on V8 to build network applications
 brew "node"
 # Python version management
@@ -25,6 +27,10 @@ brew "starship"
 brew "eza"
 # Simple terminal UI for git commands
 brew "lazygit"
+# Neovim
+brew "neovim"
+# zsh
+brew "zsh"
 # Developer targeted fonts with a high number of glyphs
 cask "font-hack-nerd-font"
 # Developer targeted fonts with a high number of glyphs

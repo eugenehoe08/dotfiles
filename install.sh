@@ -4,6 +4,7 @@
 . scripts/prerequisites.sh
 . scripts/brew-install.sh
 . scripts/symlinks.sh
+. scripts/zsh-link.sh
 
 info "Dotfiles intallation initialized..."
 read -p "Install apps? [y/n] " install_apps
@@ -15,7 +16,12 @@ if [[ "$install_apps" == "y" ]]; then
     info "Prerequisites"
     info "===================="
 
+    sudo apt-get install build-essential procps curl file git
+
     install_homebrew
+    test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 
     printf "\n"
     info "===================="
@@ -23,6 +29,12 @@ if [[ "$install_apps" == "y" ]]; then
     info "===================="
 
     run_brew_bundle
+    info "===================="
+    info "switching shell to zsh"
+    info "===================="
+
+    change_shell
+    printf "\n"
 fi
 
 printf "\n"
