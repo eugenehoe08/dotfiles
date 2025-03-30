@@ -7,5 +7,7 @@ change_shell() {
 
     chsh -s $(which zsh)
 
+    exec zsh
+
     echo $SHELL
 }
