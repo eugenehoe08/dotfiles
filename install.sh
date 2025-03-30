@@ -6,11 +6,13 @@
 . scripts/symlinks.sh
 . scripts/zsh-link.sh
 . scripts/fonts.sh
+. scripts/docker-install.sh
 
 info "Dotfiles intallation initialized..."
 read -p "Install apps? [y/n] " install_apps
 read -p "Overwrite existing dotfiles? [y/n] " overwrite_dotfiles
 read -p "Install fonts? [y/n]" install_fonts
+read -p "Install docker? [y/n]" install_de
 if [[ "$install_apps" == "y" ]]; then
     printf "\n"
     info "==================="
@@ -69,3 +71,14 @@ fi
 ./scripts/symlinks.sh --create
 
 success "Dotfiles set up successfully."
+
+if [[ "$install_de" == "y" ]]; then
+    printf "\n"
+    info "===================="
+    info "Install Docker"
+    info "===================="
+
+    install_docker
+fi
+
+success "Docker installed successfully."
