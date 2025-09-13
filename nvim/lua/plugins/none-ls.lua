@@ -13,12 +13,12 @@ return {
     -- list of formatters & linters for mason to install
     require('mason-null-ls').setup {
       ensure_installed = {
-        -- 'checkmake',
+        'checkmake',
         'prettier', -- ts/js formatter
-        -- 'stylua', -- lua formatter
+        -- 'stylua', -- lua formatter already installed via Mason
         'eslint_d', -- ts/js linter
         'shfmt',
-        -- 'ruff',
+        -- 'ruff', -- already installed via Mason
         -- 'ansiblelint',
         'npm_groovy_lint',
         'google_java_format',
