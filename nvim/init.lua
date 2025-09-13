@@ -1,18 +1,34 @@
 require 'core.options'
 require 'core.keymaps'
+require 'core.snippets' -- Custom code snippets
 
+-- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    error('Error cloning lazy.nvim:\n' .. out)
-  end
-end ---@diagnostic disable-next-line: undefined-field
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  }
+end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup {
-  require 'plugins.colortheme',
+-- Import color theme based on environment variable NVIM_THEME
+local default_color_scheme = 'nord'
+local env_var_nvim_theme = os.getenv 'NVIM_THEME' or default_color_scheme
+
+-- Define a table of theme modules
+local themes = {
+  nord = 'plugins.themes.nord',
+  onedark = 'plugins.themes.onedark',
+}
+
+require('lazy').setup({
+    require(themes[env_var_nvim_theme]),
+--   require 'plugins.colortheme',
   require 'plugins.neotree',
   require 'plugins.bufferline',
   require 'plugins.lualine',
@@ -27,4 +43,6 @@ require('lazy').setup {
   require 'plugins.misc',
   require 'plugins.surround',
   require 'plugins.lazygit',
-}
+  require 'plugins.comment',
+  require 'plugins.debug',
+})
