@@ -46,3 +46,6 @@ setopt EXTENDED_HISTORY
 
 # Activate autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Zoxide
+eval "$(zoxide init zsh)"

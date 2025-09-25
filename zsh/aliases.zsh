@@ -12,6 +12,9 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+# Zoxide
+alias cd='z'
+
 # Git
 alias g='git'
 alias ga='git add'

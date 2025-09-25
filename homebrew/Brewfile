@@ -27,6 +27,8 @@ brew "zsh-history-substring-search"
 brew "starship"
 # Modern, maintained replacement for ls
 brew "eza"
+# Zoxide, A modern cd
+brew "zoxide"
 # Simple terminal UI for git commands
 brew "lazygit"
 # Neovim
