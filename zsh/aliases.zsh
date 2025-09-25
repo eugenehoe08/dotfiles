@@ -6,7 +6,7 @@ alias e='exit'
 # General
 alias tmp='$HOME/tmp'
 alias ls='eza --all --icons=always'
-alias ll='ls'
+alias ll='ls -al'
 alias zshconfig='nvim ~/.zshrc'
 alias ..='cd ..'
 alias ...='cd ../..'
